@@ -1,5 +1,6 @@
 package com.company.jmixpmdata.view.user;
 
+import com.company.jmixpmdata.entity.ContactInformation;
 import com.company.jmixpmdata.entity.User;
 import com.company.jmixpmdata.view.main.MainView;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -9,6 +10,7 @@ import com.vaadin.flow.router.Route;
 import io.jmix.core.EntityStates;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,9 +24,9 @@ import java.util.TimeZone;
 @ViewDescriptor(path = "user-detail-view.xml")
 @EditedEntityContainer("userDc")
 public class UserDetailView extends StandardDetailView<User> {
-
     @ViewComponent
     private TypedTextField<String> usernameField;
+
     @ViewComponent
     private PasswordField passwordField;
     @ViewComponent
@@ -35,12 +37,11 @@ public class UserDetailView extends StandardDetailView<User> {
     private MessageBundle messageBundle;
     @Autowired
     private Notifications notifications;
-
     @Autowired
     private EntityStates entityStates;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Subscribe
     public void onInit(final InitEvent event) {
         timeZoneField.setItems(List.of(TimeZone.getAvailableIDs()));
@@ -79,4 +80,16 @@ public class UserDetailView extends StandardDetailView<User> {
                     .show();
         }
     }
+
+    @Subscribe(id = "userDc", target = Target.DATA_CONTAINER)
+    public void onUserDcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
+        notifications.show("User: " + event.getProperty());
+    }
+
+    @Subscribe(id = "contactInformationDc", target = Target.DATA_CONTAINER)
+    public void onContactInformationDcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<ContactInformation> event) {
+        notifications.show("Contact information: " + event.getProperty());
+    }
+    
+    
 }

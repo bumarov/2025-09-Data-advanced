@@ -7,6 +7,7 @@
                   class="com.company.jmixpmdata.entity.User">
             <fetchPlan extends="_base"/>
             <loader/>
+            <instance id="contactInformationDc" property="contactInformation"/>
         </instance>
     </data>
     <actions>
@@ -29,10 +30,20 @@
                            visible="false"/>
             <textField id="firstNameField" property="firstName"/>
             <textField id="lastNameField" property="lastName"/>
-            <textField id="emailField" property="email"/>
             <comboBox id="timeZoneField" property="timeZoneId" clearButtonVisible="true"/>
             <checkbox id="activeField" property="active"/>
         </formLayout>
+
+        <details id="contactInformationDetails"
+                 summaryText="msg://contactInformationDetails.summaryText"
+                 opened="true" width="100%">
+            <formLayout dataContainer="contactInformationDc">
+                <textField id="contactInformationEmailField" property="email"/>
+                <textField id="contactInformationPhoneField" property="phone"/>
+                <textArea id="contactInformationAddressField" property="address"/>
+                <textField id="contactInformationUrlField" property="url"/>
+            </formLayout>
+        </details>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>
             <button id="closeButton" action="closeAction"/>

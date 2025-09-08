@@ -7,6 +7,8 @@
               title="msg://com.company.jmixpmdata/menu_config.Project.list.title"/>
         <item view="Task_.list" description="msg://com.company.jmixpmdata/menu_config.Task_.list.description"
               title="msg://com.company.jmixpmdata/menu_config.Task_.list.title"/>
+        <item view="TimeEntry.list" title="msg://com.company.jmixpmdata.view.timeentry/timeEntryListView.title"/>
+        <item view="Roadmap.list" title="msg://com.company.jmixpmdata.view.roadmap/roadmapListView.title"/>
     </menu>
 
 </menu-config>

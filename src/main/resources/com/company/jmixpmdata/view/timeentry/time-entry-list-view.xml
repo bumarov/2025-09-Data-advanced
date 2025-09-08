@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://taskListView.title"
-      focusComponent="tasksDataGrid">
+      title="msg://timeEntryListView.title"
+      focusComponent="timeEntriesDataGrid">
     <data>
-        <collection id="tasksDc"
-                    class="com.company.jmixpmdata.entity.Task">
+        <collection id="timeEntriesDc"
+                    class="com.company.jmixpmdata.entity.TimeEntry">
             <fetchPlan extends="_base">
-                <property name="assignee" fetchPlan="_instance_name"/>
+                <property name="task" fetchPlan="_base"/>
+                <property name="user" fetchPlan="_base"/>
             </fetchPlan>
-            <loader id="tasksDl" readOnly="true">
+            <loader id="timeEntriesDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from Task_ e]]>
+                    <![CDATA[select e from TimeEntry e]]>
                 </query>
             </loader>
         </collection>
@@ -29,28 +30,31 @@
     </actions>
     <layout>
         <genericFilter id="genericFilter"
-                       dataLoader="tasksDl">
+                       dataLoader="timeEntriesDl">
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createButton" action="tasksDataGrid.read"/>
-            <button id="editButton" action="tasksDataGrid.refresh"/>
-            <simplePagination id="pagination" dataLoader="tasksDl"/>
+            <button id="createButton" action="timeEntriesDataGrid.createAction"/>
+            <button id="editButton" action="timeEntriesDataGrid.editAction"/>
+            <button id="removeButton" action="timeEntriesDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="timeEntriesDl"/>
         </hbox>
-        <dataGrid id="tasksDataGrid"
+        <dataGrid id="timeEntriesDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="tasksDc"
+                  dataContainer="timeEntriesDc"
                   columnReorderingAllowed="true">
             <actions>
-                <action id="read" type="list_read"/>
-                <action id="refresh" type="list_refresh"/>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="name"/>
-                <column property="assignee"/>
-                <column property="startDate"/>
-                <column property="estimatedEfforts"/>
+                <column property="task"/>
+                <column property="timeSpent"/>
+                <column property="entryDate"/>
+                <column property="user"/>
+                <column property="description"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

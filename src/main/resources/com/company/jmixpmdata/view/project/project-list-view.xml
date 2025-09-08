@@ -8,6 +8,7 @@
                     class="com.company.jmixpmdata.entity.Project">
             <fetchPlan extends="_base">
                 <property name="manager" fetchPlan="_instance_name"/>
+                <property name="roadmap" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="projectsDl" readOnly="true">
                 <query>
@@ -53,6 +54,9 @@
                 <column property="startDate"/>
                 <column property="endDate"/>
                 <column property="manager"/>
+                <column property="status"/>
+                <column property="roadmap"/>
+                <column property="projectLabels"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
