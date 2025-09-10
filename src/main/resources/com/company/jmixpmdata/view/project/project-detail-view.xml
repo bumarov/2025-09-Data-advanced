@@ -23,7 +23,7 @@
         <action id="saveAction" type="detail_saveClose"/>
         <action id="closeAction" type="detail_close"/>
     </actions>
-    <layout>
+    <layout expand="tabSheet">
         <formLayout id="form" dataContainer="projectDc">
             <responsiveSteps>
                 <responsiveStep minWidth="0" columns="1"/>

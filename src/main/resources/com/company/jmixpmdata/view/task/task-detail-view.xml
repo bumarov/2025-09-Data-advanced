@@ -7,6 +7,7 @@
                   class="com.company.jmixpmdata.entity.Task">
             <fetchPlan extends="_base">
                 <property name="assignee" fetchPlan="_instance_name"/>
+                <property name="project" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="taskDl"/>
         </instance>
@@ -31,8 +32,10 @@
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <entityPicker id="projectField" property="project" readOnly="true"/>
             <dateTimePicker id="startDateField" property="startDate"/>
             <textField id="estimatedEffortsField" property="estimatedEfforts"/>
+            <comboBox id="labelField" property="label"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

@@ -39,10 +39,34 @@ public class Task {
     @Column(name = "ESTIMATED_EFFORTS")
     private Integer estimatedEfforts;
 
+    @NotNull
     @OnDeleteInverse(DeletePolicy.CASCADE)
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Project project;
+
+    @Column(name = "LABEL")
+    private String label;
+
+    @Column(name = "CLOSED", nullable = false)
+    @NotNull
+    private Boolean closed = false;
+
+    public Boolean getClosed() {
+        return closed;
+    }
+
+    public void setClosed(Boolean closed) {
+        this.closed = closed;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
     public Project getProject() {
         return project;

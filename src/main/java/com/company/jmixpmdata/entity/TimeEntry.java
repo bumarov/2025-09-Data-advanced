@@ -5,6 +5,9 @@ import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,10 +31,12 @@ public class TimeEntry {
 
     @Column(name = "TIME_SPENT", nullable = false)
     @NotNull
+    @Positive(message = "Spent time: ${validatedValue} must pe positive")
     private Integer timeSpent;
 
     @Column(name = "ENTRY_DATE", nullable = false)
     @NotNull
+    @PastOrPresent
     private LocalDateTime entryDate;
 
     @JoinColumn(name = "USER_ID")
@@ -41,6 +46,7 @@ public class TimeEntry {
     @InstanceName
     @Column(name = "DESCRIPTION")
     @Lob
+    @Length(message = "{msg://com.company.jmixpmdata.entity/TimeEntry.description.validation.Length}", min = 10)
     private String description;
 
     public String getDescription() {
