@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://orderListView.title"
+      focusComponent="ordersDataGrid">
+    <data>
+        <collection id="ordersDc"
+                    class="com.company.jmixpmdata.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="customer" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="ordersDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Order_ e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="orderDc"
+                  class="com.company.jmixpmdata.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="customer" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="orderDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout padding="false">
+        <formLayout id="layoutWrapper" classNames="master-detail-layout" height="100%">
+            <vbox id="listLayout" height="100%">
+                <genericFilter id="genericFilter"
+                               dataLoader="ordersDl">
+                    <properties include=".*"/>
+                </genericFilter>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button id="createButton" action="ordersDataGrid.createAction"/>
+                    <button id="editButton" action="ordersDataGrid.editAction"/>
+                    <button id="removeButton" action="ordersDataGrid.removeAction"/>
+                    <simplePagination id="pagination" dataLoader="ordersDl"/>
+                </hbox>
+                <dataGrid id="ordersDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="ordersDc"
+                          columnReorderingAllowed="true">
+                    <actions>
+                        <action id="createAction" type="list_create"/>
+                        <action id="editAction" type="list_edit"/>
+                        <action id="removeAction" type="list_remove"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="orderNumber"/>
+                        <column property="date"/>
+                        <column property="customer"/>
+                    </columns>
+                </dataGrid>
+                <hbox id="lookupActions" visible="false">
+                    <button id="selectButton" action="selectAction"/>
+                    <button id="discardButton" action="discardAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="detailsLayout" height="100%">
+                <formLayout id="form" dataContainer="orderDc">
+                    <responsiveSteps>
+                        <responsiveStep minWidth="0" columns="1"/>
+                        <responsiveStep minWidth="40em" columns="2"/>
+                    </responsiveSteps>
+                    <textField id="orderNumberField" property="orderNumber"/>
+                    <datePicker id="dateField" property="date"/>
+                    <entityPicker id="customerField" property="customer">
+                        <actions>
+                            <action id="entityLookupAction" type="entity_lookup"/>
+                            <action id="entityClearAction" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                </formLayout>
+                <hbox id="detailActions">
+                    <button id="saveButton" text="msg:///actions.Save" icon="CHECK" themeNames="primary"/>
+                    <button id="cancelButton" text="msg:///actions.Cancel" icon="BAN"/>
+                </hbox>
+            </vbox>
+        </formLayout>
+    </layout>
+</view>
