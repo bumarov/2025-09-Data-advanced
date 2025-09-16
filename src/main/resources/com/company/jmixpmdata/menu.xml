@@ -11,11 +11,14 @@
         <item view="Roadmap.list" title="msg://com.company.jmixpmdata.view.roadmap/roadmapListView.title"/>
         <item view="ProjectStatsView" title="msg://com.company.jmixpmdata.view.projectstats/projectStatsView.title"/>
         <item view="WorkloadView" title="msg://com.company.jmixpmdata.view.workload/workloadView.title"/>
+        <item view="Project.lookup" title="msg://com.company.jmixpmdata.view.project/projectLookupView.title"/>
     </menu>
     <menu id="customers" description="msg://com.company.jmixpmdata/menu_config.customers.description"
           title="msg://com.company.jmixpmdata/menu_config.customers.title" icon="vaadin:user-card">
         <item view="Customer.list" title="msg://com.company.jmixpmdata.view.customer/customerListView.title"/>
         <item view="Order_.list" title="msg://com.company.jmixpmdata.view.order/orderListView.title"/>
         <item view="CustomSearchView" title="msg://com.company.jmixpmdata.view.customsearch/customSearchView.title"/>
+        <item view="CustomerSubstringSearchView"
+              title="msg://com.company.jmixpmdata.view.customersubstringsearch/customerSubstringSearchView.title"/>
     </menu>
 </menu-config>

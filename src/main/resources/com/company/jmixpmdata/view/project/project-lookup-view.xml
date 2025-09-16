@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://projectListView.title"
+      title="msg://projectLookupView.title"
       focusComponent="projectsDataGrid">
     <data>
         <collection id="projectsDc"
                     class="com.company.jmixpmdata.entity.Project">
             <fetchPlan extends="_base">
                 <property name="manager" fetchPlan="_instance_name"/>
-                <property name="roadmap" fetchPlan="_base"/>
-                <property name="owner" fetchPlan="_base"/>
+                <property name="owner" fetchPlan="_instance_name"/>
             </fetchPlan>
-            <loader id="projectsDl" readOnly="true">
-                <query>
-                    <![CDATA[select e from Project e]]>
-                </query>
-            </loader>
+            <loader id="projectsDl" readOnly="true"/>
         </collection>
     </data>
     <facets>
@@ -35,34 +30,21 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createButton" action="projectsDataGrid.create"/>
-            <button id="editButton" action="projectsDataGrid.edit"/>
-            <button id="removeButton" action="projectsDataGrid.remove"/>
-            <button id="createWithDataMangerButton" text="msg://createWithDataMangerButton.text" themeNames="warning"/>
             <simplePagination id="pagination" dataLoader="projectsDl"/>
         </hbox>
         <dataGrid id="projectsDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="projectsDc"
-                  columnReorderingAllowed="true">
+                  dataContainer="projectsDc">
             <actions>
-                <action id="create" type="list_create"/>
-                <action id="edit" type="list_edit"/>
-                <action id="remove" type="list_remove"/>
             </actions>
-            <columns resizable="true">
-                <column property="name" editable="true"/>
-                <column property="startDate" editable="true"/>
-                <column property="endDate" editable="true"/>
-                <column property="manager"/>
+            <columns>
+                <column property="name"/>
                 <column property="status"/>
-                <column property="roadmap"/>
-                <column property="projectLabels" editable="true"/>
-                <editorActionsColumn>
-                    <editButton icon="EDIT"/>
-                    <cancelButton icon="BAN"/>
-                </editorActionsColumn>
+                <column property="startDate"/>
+                <column property="endDate"/>
+                <column property="manager"/>
+                <column property="projectLabels"/>
                 <column property="totalEstimatedEfforts"/>
                 <column property="owner"/>
             </columns>
